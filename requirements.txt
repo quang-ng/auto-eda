@@ -1,0 +1,8 @@
+Flask
+plotly
+numpy 
+pandas==0.25.3
+requests
+statsmodels>=0.9.0
+scikit_learn
+gunicorn    
