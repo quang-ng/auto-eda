@@ -56,6 +56,49 @@
     <div id="correlation_chart"></div>
   </div>
 </div>
+<div class="row">
+  <h2>Predict Employee Turnover Rate</h2>
+</div>
+<div class="row">
+  <h4>Input emplyee information</h4>
+</div>
+<div>
+  
+
+  <form>
+    <div class="form-group row">
+      <label for="Satisfaction level" class="col-sm-2 col-form-label">Satisfaction level</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="Satisfaction level" >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="Last evaluation" class="col-sm-2 col-form-label">Last evaluation</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="Last evaluation" >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="Number project" class="col-sm-2 col-form-label">Number project</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="Number project" >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="Time spend company" class="col-sm-2 col-form-label">Time spend company</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="Time spend company" >
+      </div>
+    </div>
+    
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="button" onclick="alert('Not implemented yet')" class="btn btn-primary">Predict</button>
+      </div>
+    </div>
+  </form>
+</div>
+
 
 
 
@@ -85,5 +128,6 @@
   Plotly.plot("correlation_chart", // the ID of the div, created above
               correlation_chart.data,
               correlation_chart.layout);
+      
 </script>
 {% endblock %}

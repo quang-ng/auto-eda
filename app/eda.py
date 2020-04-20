@@ -151,8 +151,6 @@ def eda_info():
     df=pd.read_csv(os.path.join(
         current_app.config['UPLOAD_FOLDER'], file_name))
 
-    # df=df.head(n=200)
-
     rows=df.to_dict(orient='records')
     column_names=list(df.columns)
 
