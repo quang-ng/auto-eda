@@ -19,7 +19,7 @@ import json
 import os
 import plotly
 
-bp = Blueprint('eda', __name__, url_prefix='/eda')
+bp = Blueprint('eda', __name__, url_prefix='/')
 
 
 def allowed_file(filename):
@@ -78,38 +78,95 @@ def get_employee_in_department_chart(df):
     data = [trace1]
 
     layout = dict(
-        title= 'January 2013 Sales Report',
-        barmode= 'stack'
+        barmode='stack'
     )
 
-    chart = json.dumps(dict(
+    return json.dumps(dict(
         data=data,
         layout=layout
     ), cls=plotly.utils.PlotlyJSONEncoder)
-    print("Ccc: ", chart)
 
-    return chart
+
+def get_time_spent_in_company_per_dep_chart(df):
+    data = []
+    for dep in df['department'].unique():
+        time_spend_company = list(
+            df[df.department == dep]['time_spend_company'])
+        data.append(dict(
+            y=time_spend_company,
+            type='box',
+            name=dep
+        ))
+    layout = dict(
+        yaxis=dict(
+            title='Year',
+            zeroline=False
+        )
+    )
+
+    return json.dumps(dict(
+        data=data,
+        layout=layout
+    ), cls=plotly.utils.PlotlyJSONEncoder)
+
+
+def get_correlation_chart(df):
+    corr_df = df.corr()
+    x = list(corr_df.columns)
+    y = list(corr_df.index)
+
+    z = []
+    for  _, element in corr_df.iterrows():
+        row = []
+        for col in corr_df.columns:
+            row.append(element[col])
+        z.append(row)
+
+    chart = dict(
+        data=[
+            dict(
+                type='heatmap',
+                x=x,
+                y=y,
+                z=z
+            )
+        ],
+        layout=dict(
+            width=800,
+            xaxis=dict(tickfont=dict(size=8)),
+            yaxis=dict(tickfont=dict(size=8)),
+            height=600,
+            margin=dict(l=200),
+            autosize=False
+        )
+    )
+    return json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder)
+
+
+
 
 @bp.route('/info', methods=['GET'])
 def eda_info():
-    file_name = request.args.get('file_name')
-    df = pd.read_csv(os.path.join(
+    file_name=request.args.get('file_name')
+    df=pd.read_csv(os.path.join(
         current_app.config['UPLOAD_FOLDER'], file_name))
 
-    df = df.head(n=200)
+    # df=df.head(n=200)
 
-    rows = df.to_dict(orient='records')
-    column_names = list(df.columns)
+    rows=df.to_dict(orient='records')
+    column_names=list(df.columns)
 
     # Preprocess data:
     # RENAME column sale to department
     df.rename(columns={'sales': 'department'}, inplace=True)
 
     # Convert salary variable type to numeric
-    df['salary'] = df['salary'].map({'low': 1, 'medium': 2, 'high': 3})
+    df['salary']=df['salary'].map({'low': 1, 'medium': 2, 'high': 3})
 
     return render_template('eda/charts.html',
                            file_name=file_name,
                            rows=rows,
                            column_headers=column_names,
-                           employee_in_department_chart=get_employee_in_department_chart(df))
+                           employee_in_department_chart=get_employee_in_department_chart(df),
+                           time_spent_in_company_per_dep_chart=get_time_spent_in_company_per_dep_chart(df),
+                           correlation_chart=get_correlation_chart(df))

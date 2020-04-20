@@ -38,6 +38,27 @@
   </div>
 </div>
 
+<div class="row">
+  <h2>Time spent in company per each department chart</h2>
+</div>
+<div class="row">
+  <div class="col">
+    <div id="time_spent_in_company_per_dep_chart"></div>
+  </div>
+</div>
+
+
+<div class="row">
+  <h2>Correlation chart</h2>
+</div>
+<div class="row">
+  <div class="col">
+    <div id="correlation_chart"></div>
+  </div>
+</div>
+
+
+
 <script type="text/javascript">
   // Basic example
   $(document).ready(function () {
@@ -54,5 +75,15 @@
   Plotly.plot("employee-in-department-chart", // the ID of the div, created above
               employee_in_department_chart.data,
               employee_in_department_chart.layout);
+
+  var time_spent_in_company_per_dep_chart = {{time_spent_in_company_per_dep_chart | safe}};
+  Plotly.plot("time_spent_in_company_per_dep_chart", // the ID of the div, created above
+              time_spent_in_company_per_dep_chart.data,
+              time_spent_in_company_per_dep_chart.layout);
+
+  var correlation_chart = {{correlation_chart | safe}};
+  Plotly.plot("correlation_chart", // the ID of the div, created above
+              correlation_chart.data,
+              correlation_chart.layout);
 </script>
 {% endblock %}
