@@ -13,7 +13,7 @@
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form method=post enctype=multipart/form-data action="/eda/upload_file">
+          <form method=post enctype=multipart/form-data action="/upload_file">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Upload CSV</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -31,116 +31,6 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <input type="submit" value="Upload" class="btn btn-primary" />
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="add_db_connection_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <form method=post enctype=multipart/form-data action="/eda/save_query" id="create_conn_form">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add DB connection</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-
-            <div class="modal-body">
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="connection_name">Connection name</label>
-                </div>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" id="connection_name" name="connection_name"
-                    required>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="server_type">Server type</label>
-                </div>
-                <div class="col-sm-8">
-                  <select class="custom-select" id="server_type" name="server_type" required>
-                    <option value="">Open this select menu</option>
-                    <option value="sql_server">SQL server</option>
-                    <option value="my_sql">My SQL</option>
-                    <option value="postgresql">Postgresql</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="server_host">Server host</label>
-                </div>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" id="server_host" name="server_host" required>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="server_port">Server port</label>
-                </div>
-                <div class="col-sm-8">
-                  <input type="number" class="form-control form-control-sm" id="server_port" name="server_port"
-                    required>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="db_name">DB name</label>
-                </div>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" id="db_name" name="db_name" required>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="user_name">User name</label>
-                </div>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" id="user_name" name="user_name" required>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="password">Password</label>
-                </div>
-                <div class="col-sm-8">
-                  <input type="password" class="form-control form-control-sm" id="password" name="password" required>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-8">
-                  <button id="test_connection_btn" type="button" class="btn btn-primary">Test connection</button>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="query">Query</label>
-                </div>
-                <div class="col-sm-8">
-                  <textarea class="form-control" id="query" name="query" rows="3" required></textarea>
-                </div>
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="test_query" class="btn btn-primary">Test query</button>
-              <button type="submit" class="btn btn-secondary">Save</button>
-              <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
             </div>
           </form>
         </div>
