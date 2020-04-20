@@ -1,7 +1,6 @@
 import os
 from flask import Flask
 
-from dotenv import load_dotenv
 from os.path import join, dirname
 from flask import (
     render_template
