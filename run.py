@@ -1,7 +1,7 @@
 import os
 from os.path import join, dirname
 
-from eda_server import create_app
+from app import create_app
 
 
 config_name = os.getenv('FLASK_CONFIG')
