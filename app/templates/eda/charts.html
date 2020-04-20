@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <h2>Data</h2>
+</div>
+<div class="row">
+  <div class="col">
+    <table id="data-table" class="table table-striped">
+      <thead>
+        <tr>
+          {% for col_name in column_headers %}
+          <th>{{ col_name }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          {% for col_name in column_headers %}
+          <td>{{ row[col_name] }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<div class="row">
+  <h2>Employee in department chart</h2>
+</div>
+<div class="row">
+  <div class="col">
+    <div id="employee-in-department-chart"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // Basic example
+  $(document).ready(function () {
+    $('#data-table').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
+</script>
+
+
+
+<script type="text/javascript">
+  var employee_in_department_chart = {{employee_in_department_chart | safe}};
+
+  Plotly.plot("employee-in-department-chart", // the ID of the div, created above
+              employee_in_department_chart.data,
+              employee_in_department_chart.layout);
+</script>
+{% endblock %}

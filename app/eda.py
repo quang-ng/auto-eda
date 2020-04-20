@@ -21,10 +21,12 @@ import plotly
 
 bp = Blueprint('eda', __name__, url_prefix='/eda')
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ['csv']
-           
+
+
 @bp.route('/', methods=['GET'])
 def list_eda():
     list_file_name = []
@@ -61,10 +63,53 @@ def upload_file():
             return redirect("/eda/")
     return redirect("/eda/")
 
+
+def get_employee_in_department_chart(df):
+    xValue = list(df['department'].value_counts().index)
+    yValue = list(df['department'].value_counts())
+
+    trace1 = dict(
+        x=xValue,
+        y=yValue,
+        type='bar',
+        textposition='auto'
+    )
+
+    data = [trace1]
+
+    layout = dict(
+        title= 'January 2013 Sales Report',
+        barmode= 'stack'
+    )
+
+    chart = json.dumps(dict(
+        data=data,
+        layout=layout
+    ), cls=plotly.utils.PlotlyJSONEncoder)
+    print("Ccc: ", chart)
+
+    return chart
+
 @bp.route('/info', methods=['GET'])
 def eda_info():
-    return "hello world"
+    file_name = request.args.get('file_name')
+    df = pd.read_csv(os.path.join(
+        current_app.config['UPLOAD_FOLDER'], file_name))
 
+    df = df.head(n=200)
 
+    rows = df.to_dict(orient='records')
+    column_names = list(df.columns)
 
+    # Preprocess data:
+    # RENAME column sale to department
+    df.rename(columns={'sales': 'department'}, inplace=True)
 
+    # Convert salary variable type to numeric
+    df['salary'] = df['salary'].map({'low': 1, 'medium': 2, 'high': 3})
+
+    return render_template('eda/charts.html',
+                           file_name=file_name,
+                           rows=rows,
+                           column_headers=column_names,
+                           employee_in_department_chart=get_employee_in_department_chart(df))
