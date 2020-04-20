@@ -60,8 +60,8 @@ def upload_file():
             file.save(os.path.join(
                 current_app.config['UPLOAD_FOLDER'], filename))
 
-            return redirect("/eda/")
-    return redirect("/eda/")
+            return redirect("/")
+    return redirect("/")
 
 
 def get_employee_in_department_chart(df):
